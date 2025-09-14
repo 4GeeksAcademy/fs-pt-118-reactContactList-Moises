@@ -1,5 +1,6 @@
 export const initialStore=()=>{
   return{
+    contacts:[],
     message: null,
     todos: [
       {
@@ -18,6 +19,27 @@ export const initialStore=()=>{
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
+    case "cargarContactos":
+                  return { ...store, contacts: action.payload };
+
+            case "AgregarContactos":
+                  return { ...store, contacts: [...store.contacts, action.payload] };
+
+                  case "eliminarContactos":
+                  return {
+                        ...store,
+                        contacts: store.contacts.filter((c) => c.id !== action.payload)
+                  };
+
+                  case "editarContacto":
+                  return {
+                        ...store,
+                        contacts: store.contacts.map((c) =>
+                              c.id === action.payload.id ? action.payload : c
+                        )
+                  };
+                  
+
     case 'add_task':
 
       const { id,  color } = action.payload
